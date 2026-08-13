@@ -1,0 +1,177 @@
+{
+  "name": "form to sheet workflow",
+  "nodes": [
+    {
+      "parameters": {
+        "formTitle": "Test Survey Class",
+        "formDescription": "Please Fill Form",
+        "formFields": {
+          "values": [
+            {
+              "fieldLabel": "Your name",
+              "placeholder": "Enter name"
+            },
+            {
+              "fieldLabel": "email",
+              "placeholder": "add email"
+            },
+            {
+              "fieldLabel": "Phone Number",
+              "fieldType": "number",
+              "placeholder": "add number"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.formTrigger",
+      "typeVersion": 2.6,
+      "position": [
+        0,
+        0
+      ],
+      "id": "5f9ab4bd-02a7-427b-83da-64cb9d8cc1f5",
+      "name": "On form submission",
+      "webhookId": "c757c198-fbd9-4de3-8740-b60679358941"
+    },
+    {
+      "parameters": {
+        "operation": "append",
+        "documentId": {
+          "__rl": true,
+          "value": "1ubATDQOJIhcq1QdbXyyRTYlN74hbaeNEizYDeXb4jF0",
+          "mode": "list",
+          "cachedResultName": "n8n test",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1ubATDQOJIhcq1QdbXyyRTYlN74hbaeNEizYDeXb4jF0/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Sheet1",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1ubATDQOJIhcq1QdbXyyRTYlN74hbaeNEizYDeXb4jF0/edit#gid=0"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "Name": "={{ $json['Your name'] }}",
+            "Email": "={{ $json.email }}",
+            "Phone Number": "={{ $json['Phone Number'] }}"
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "Name",
+              "displayName": "Name",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Email",
+              "displayName": "Email",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Phone Number",
+              "displayName": "Phone Number",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        192,
+        -16
+      ],
+      "id": "495be7ad-6528-411c-8401-b8df71023284",
+      "name": "Append row in sheet",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "3Si7tGR9jrq7JL2p",
+          "name": "Google Sheets account 2"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "sendTo": "={{ $('On form submission').item.json.email }}",
+        "subject": "n8n form email",
+        "message": "hii jsnikhjasfdytkity",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.2,
+      "position": [
+        400,
+        -16
+      ],
+      "id": "78f19893-22d2-40d7-b194-61400012f5b7",
+      "name": "Send a message",
+      "webhookId": "68cea015-27fc-48aa-9135-4be25ed87ac2",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "8ic2GtDsCmsUkiZn",
+          "name": "Gmail account"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "On form submission": {
+      "main": [
+        [
+          {
+            "node": "Append row in sheet",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Append row in sheet": {
+      "main": [
+        [
+          {
+            "node": "Send a message",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate",
+    "availableInMCP": false
+  },
+  "versionId": "bdcc5ca7-2aa3-4ee0-999b-b0d38ff7fce5",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "d2f1653eb5ca7454b2339a676993506944b324f6c7429b660e75c1410ad8c0f0"
+  },
+  "nodeGroups": [],
+  "id": "TNLdeu38phmQUBJZ",
+  "tags": []
+}
