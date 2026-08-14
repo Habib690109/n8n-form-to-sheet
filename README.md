@@ -36,10 +36,7 @@ Google Sheets – Storing submitted data
 Gmail/Email – Sending confirmation emails
 📋 Example
 
-When a user submits the form with their name and email:
-
-Name: Habib Shaheen
-Email: habibshaheen.56@gmail.com
+When a user submits the form with their name, email and phone number:
 
 The information is automatically added to Google Sheets, and the user receives a confirmation email containing their submission details.
 
